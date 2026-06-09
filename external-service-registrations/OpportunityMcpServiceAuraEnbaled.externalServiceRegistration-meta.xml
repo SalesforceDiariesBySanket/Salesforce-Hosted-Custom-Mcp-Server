@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>AuraEnabled version of OpportunityMcpService for high-value opportunity retrieval.</description>
+    <label>OpportunityMcpServiceAuraEnbaled</label>
+    <operations>
+        <active>true</active>
+        <name>gethighvalueopportunities</name>
+    </operations>
+    <registrationProviderAsset>OpportunityMcpServiceAuraEnbaled</registrationProviderAsset>
+    <registrationProviderType>AuraEnabled</registrationProviderType>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

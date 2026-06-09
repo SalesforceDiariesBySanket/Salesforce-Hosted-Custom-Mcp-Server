@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Named Query API provides programmatic access to REST APIs based on pre-defined SOQL queries.</description>
+    <label>GetCaseByCaseNumber</label>
+    <operations>
+        <active>true</active>
+        <name>getcasebycasenumber</name>
+    </operations>
+    <registrationProviderAsset>GetCaseByCaseNumber</registrationProviderAsset>
+    <registrationProviderType>NamedQuery</registrationProviderType>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>
