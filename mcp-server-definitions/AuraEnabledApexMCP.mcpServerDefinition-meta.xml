@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>call apex class</description>
+    <masterLabel>AuraEnabled Apex MCP</masterLabel>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>ae:OpportunityMcpService</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>getHighValueOpportunities</operation>
+        </apiDefinition>
+        <descriptionOverride>Retrieves all Opportunities whose Amount is greater than a minimum value (defaults to 50000), ordered from the largest deal to the smallest.</descriptionOverride>
+        <toolName>getHighValueOpportunitiesOpportunityMcpService</toolName>
+        <toolTitle>getHighValueOpportunities</toolTitle>
+    </tools>
+</McpServerDefinition>

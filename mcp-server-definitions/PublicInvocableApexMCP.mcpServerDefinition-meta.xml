@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>this tool is used for getting account analytic</description>
+    <masterLabel>PublicInvocableApexMCP</masterLabel>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>ae:AccountAnalytics</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>invoke</operation>
+        </apiDefinition>
+        <descriptionOverride>Runs aggregations over the Account object and returns a human-readable summary. Choose the analytics with mode — top_revenue (largest accounts by AnnualRevenue), by_industry (distribution across industries), recent (most recently created), or health_summary (overall data completeness and totals).</descriptionOverride>
+        <toolName>invokeAccountAnalytics</toolName>
+        <toolTitle>invoke</toolTitle>
+    </tools>
+</McpServerDefinition>
