@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Runs Account aggregations — top accounts by revenue, distribution by industry, most recently created, or an overall data-health summary — so an Agentforce agent or MCP client can answer analytics questions about Accounts.</description>
+    <label>AccountAnalytics</label>
+    <operations>
+        <active>true</active>
+        <name>invoke</name>
+    </operations>
+    <registrationProviderAsset>AccountAnalytics</registrationProviderAsset>
+    <registrationProviderType>AuraEnabled</registrationProviderType>
+    <schema>openapi: 3.0.0
+info:
+  title: AccountAnalytics
+  description: Runs Account aggregations — top accounts by revenue, distribution by industry, most recently created, or an overall data-health summary — so an Agentforce agent or MCP client can answer analytics questions about Accounts.
+  version: &apos;1.0.0&apos;
+servers:
+  - url: /services/aura-controllers/custom
+paths:
+  /invoke:
+    post:
+      operationId: invoke
+      summary: Run account analytics
+      description: Runs aggregations over the Account object and returns a human-readable summary. Choose the analytics with mode — top_revenue (largest accounts by AnnualRevenue), by_industry (distribution across industries, or a drill-in when industry is supplied), recent (most recently created), or health_summary (overall data completeness and totals). Results respect the running user sharing and field-level security.
+      x-sfdc:
+        agent:
+          action:
+            publishAsAgentAction: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mode
+              properties:
+                mode:
+                  title: Mode
+                  description: Which analytic to run. One of top_revenue, by_industry, recent, or health_summary. Defaults to health_summary when blank.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+                top_n:
+                  title: Top N
+                  description: How many rows to return. Used by top_revenue and recent (default 10, capped at 50).
+                  type: integer
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+                industry:
+                  title: Industry Filter
+                  description: Optional. Used only by by_industry to drill into a single industry segment instead of returning the full distribution.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+      responses:
+        &apos;200&apos;:
+          description: The analytics summary, the mode that ran, and the number of records considered.
+          content:
+            application/json:
+              schema:
+                $ref: &apos;#/components/schemas/AnalyticsResult&apos;
+components:
+  schemas:
+    AnalyticsResult:
+      type: object
+      properties:
+        summary:
+          type: string
+          description: Human-readable summary of the requested analytics.
+        mode:
+          type: string
+          description: The analytics mode that was run.
+        total:
+          type: integer
+          description: The number of records considered for the result.
+</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>yaml</schemaUploadFileExtension>
+    <schemaUploadFileName>AccountAnalytics</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/services/aura-controllers/custom&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

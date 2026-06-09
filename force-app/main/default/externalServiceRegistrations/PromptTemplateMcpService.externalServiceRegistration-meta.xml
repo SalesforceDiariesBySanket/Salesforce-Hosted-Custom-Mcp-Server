@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Runs a Prompt Builder template for a single record and returns the generated text, so an MCP client or agent can generate grounded content on demand.</description>
+    <label>PromptTemplateMcpService</label>
+    <operations>
+        <active>true</active>
+        <name>runprompttemplate</name>
+    </operations>
+    <registrationProviderAsset>PromptTemplateMcpService</registrationProviderAsset>
+    <registrationProviderType>AuraEnabled</registrationProviderType>
+    <schema>openapi: 3.0.0
+info:
+  title: PromptTemplateMcpService
+  description: Runs a Prompt Builder template for a single record and returns the generated text, so an MCP client or agent can generate grounded content on demand.
+  version: &apos;1.0.0&apos;
+servers:
+  - url: /services/aura-controllers/custom
+paths:
+  /runPromptTemplate:
+    post:
+      operationId: runPromptTemplate
+      summary: Run a prompt template
+      description: Runs a Prompt Builder template against a single record and returns the generated text. Use to generate grounded content — a summary, an outreach email, a recommendation — for a specific record by naming the prompt template and the record that grounds it.
+      x-sfdc:
+        agent:
+          action:
+            publishAsAgentAction: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - templateName
+                - recordId
+              properties:
+                templateName:
+                  title: Template Name
+                  description: Developer name (or Id) of the prompt template to run. Required.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+                recordId:
+                  title: Record Id
+                  description: Id of the record that grounds the template. Required.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+                inputParameterName:
+                  title: Input Parameter Name
+                  description: Reference name of the template input (e.g. &quot;Input:Account&quot;). Omit to default to Input:Account.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: false
+                        isUserInput: true
+      responses:
+        &apos;200&apos;:
+          description: The generated text plus success / error details.
+          content:
+            application/json:
+              schema:
+                $ref: &apos;#/components/schemas/PromptResult&apos;
+components:
+  schemas:
+    PromptResult:
+      type: object
+      properties:
+        isSuccess:
+          type: boolean
+          description: True when the template generated content successfully.
+        responseText:
+          type: string
+          description: The generated text returned by the prompt template.
+        errorMessage:
+          type: string
+          description: Populated when generation failed or returned no content.
+</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>yaml</schemaUploadFileExtension>
+    <schemaUploadFileName>PromptTemplateMcpService</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/services/aura-controllers/custom&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

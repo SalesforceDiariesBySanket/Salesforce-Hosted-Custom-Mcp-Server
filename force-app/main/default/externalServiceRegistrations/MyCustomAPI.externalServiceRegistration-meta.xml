@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Retrieves high-value Opportunities from Salesforce through a custom Apex REST endpoint so an Agentforce agent can answer questions about large deals.</description>
+    <label>MyCustomAPI</label>
+    <operations>
+        <active>true</active>
+        <name>doget</name>
+    </operations>
+    <registrationProviderAsset>MyCustomAPI</registrationProviderAsset>
+    <registrationProviderType>ApexRest</registrationProviderType>
+    <schema>openapi: 3.0.0
+info:
+  title: MyCustomAPI
+  description: Retrieves high-value Opportunities from Salesforce through a custom Apex REST endpoint so an Agentforce agent can answer questions about large deals.
+  version: &apos;1.0.0&apos;
+servers:
+  - url: /services/apexrest
+paths:
+  /MyCustomAPI/:
+    get:
+      operationId: doGet
+      summary: Get high-value opportunities
+      description: Retrieves Opportunities whose Amount is greater than a minimum value (defaults to 50000), ordered from the largest deal to the smallest, limited to the top 200 records. Results respect the running user sharing and field-level security.
+      x-sfdc:
+        agent:
+          action:
+            publishAsAgentAction: true
+      parameters:
+        - name: minAmount
+          in: query
+          required: false
+          description: Exclusive lower bound on Opportunity Amount. Defaults to 50000 when omitted.
+          schema:
+            type: number
+          x-sfdc:
+            agent:
+              action:
+                isDisplayable: true
+                isUserInput: true
+      responses:
+        &apos;200&apos;:
+          description: A list of high-value opportunities, largest Amount first.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &apos;#/components/schemas/OpportunityInfo&apos;
+components:
+  schemas:
+    OpportunityInfo:
+      type: object
+      properties:
+        opportunityId:
+          type: string
+          description: The Opportunity record Id.
+        name:
+          type: string
+          description: The Opportunity name.
+        amount:
+          type: number
+          description: The Opportunity Amount in the org default currency.
+        stageName:
+          type: string
+          description: The current sales stage.
+        closeDate:
+          type: string
+          format: date
+          description: The expected close date.
+</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>yaml</schemaUploadFileExtension>
+    <schemaUploadFileName>MyCustomAPI</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/services/apexrest&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

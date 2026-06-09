@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>JQz3VwvL/v7TXe8zJpZOLEMUxxdvvKs7P6TCs3z3m6I=_1</activeVersionIdentifier>
+    <description>Drafts concise, numbered self-help troubleshooting steps for an employee&apos;s IT problem.</description>
+    <developerName>Draft_IT_Troubleshooting</developerName>
+    <masterLabel>Draft IT Troubleshooting</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are an internal IT help-desk specialist writing for a fellow employee. Write a short, calm message (no more than 130 words) that gives the employee clear, numbered self-help steps to try for the problem they described, before a technician gets involved.
+
+The employee&apos;s problem is: &quot;{!$Input:Problem_Description}&quot;.
+
+Your message MUST:
+1. Briefly acknowledge the problem in one sentence.
+2. Give three to five numbered troubleshooting steps that are safe for a non-technical employee to perform (e.g. restart, check cables/network, clear cache, re-authenticate).
+3. End by telling the employee that if these steps do not resolve the issue, they should reply so a ticket can be escalated to a technician.
+
+Do NOT recommend actions that require admin rights or could cause data loss. Do NOT use emoji.
+</content>
+        <inputs>
+            <apiName>Problem_Description</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Problem Description</masterLabel>
+            <referenceName>Input:Problem_Description</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>JQz3VwvL/v7TXe8zJpZOLEMUxxdvvKs7P6TCs3z3m6I=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Retrieves high-value Opportunities from Salesforce so an Agentforce agent can answer questions about large deals.</description>
+    <label>OpportunityMcpService</label>
+    <operations>
+        <active>true</active>
+        <name>gethighvalueopportunities</name>
+    </operations>
+    <registrationProviderAsset>OpportunityMcpService</registrationProviderAsset>
+    <registrationProviderType>AuraEnabled</registrationProviderType>
+    <schema>openapi: 3.0.0
+info:
+  title: OpportunityMcpService
+  description: Retrieves high-value Opportunities from Salesforce so an Agentforce agent can answer questions about large deals.
+  version: &apos;1.0.0&apos;
+servers:
+  - url: /services/aura-controllers/custom
+paths:
+  /getHighValueOpportunities:
+    post:
+      operationId: getHighValueOpportunities
+      summary: Get high-value opportunities
+      description: Retrieves all Opportunities whose Amount is greater than a minimum value (defaults to 50000), ordered from the largest deal to the smallest. Results respect the running user sharing and field-level security.
+      x-sfdc:
+        agent:
+          action:
+            publishAsAgentAction: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                minimumAmount:
+                  title: Minimum Amount
+                  description: Exclusive lower bound on Opportunity Amount. Defaults to 50000 when omitted.
+                  type: number
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+      responses:
+        &apos;200&apos;:
+          description: A list of high-value opportunities, largest Amount first.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &apos;#/components/schemas/HighValueOpportunity&apos;
+components:
+  schemas:
+    HighValueOpportunity:
+      type: object
+      properties:
+        opportunityId:
+          type: string
+          description: The Opportunity record Id.
+        name:
+          type: string
+          description: The Opportunity name.
+        amount:
+          type: number
+          description: The Opportunity Amount in the org default currency.
+        stageName:
+          type: string
+          description: The current sales stage.
+        closeDate:
+          type: string
+          format: date
+          description: The expected close date.
+        accountName:
+          type: string
+          description: The related Account name, if any.
+</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>yaml</schemaUploadFileExtension>
+    <schemaUploadFileName>OpportunityMcpService</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/services/aura-controllers/custom&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "name": "blogSalesforceBySanket",
+  "name": "Salesforce-Hosted-Custom-Mcp-Server",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "66.0"

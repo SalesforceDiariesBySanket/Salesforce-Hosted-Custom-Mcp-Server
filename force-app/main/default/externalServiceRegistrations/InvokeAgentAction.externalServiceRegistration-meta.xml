@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Sends a natural-language message to an Agentforce agent and returns the agent&apos;s reply, so an MCP client or another agent can delegate work to the org&apos;s agent.</description>
+    <label>InvokeAgentAction</label>
+    <operations>
+        <active>true</active>
+        <name>askagent</name>
+    </operations>
+    <registrationProviderAsset>InvokeAgentAction</registrationProviderAsset>
+    <registrationProviderType>AuraEnabled</registrationProviderType>
+    <schema>openapi: 3.0.0
+info:
+  title: InvokeAgentAction
+  description: Sends a natural-language message to an Agentforce agent and returns the agent&apos;s reply, so an MCP client or another agent can delegate work to the org&apos;s agent.
+  version: &apos;1.0.0&apos;
+servers:
+  - url: /services/aura-controllers/custom
+paths:
+  /askAgent:
+    post:
+      operationId: askAgent
+      summary: Ask an Agentforce agent
+      description: Sends a natural-language message to an Agentforce agent and returns its reply. Use to ask an agent to do something on the user&apos;s behalf — create or update records, look something up, or answer a question — by describing the request in plain language. Pass back the returned sessionId to continue the same conversation.
+      x-sfdc:
+        agent:
+          action:
+            publishAsAgentAction: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userMessage
+              properties:
+                userMessage:
+                  title: User Message
+                  description: The natural-language message to send to the agent, exactly as an end user would phrase it. Required.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: true
+                        isUserInput: true
+                sessionId:
+                  title: Session Id
+                  description: Optional. The sessionId returned by a previous call. Pass it back to continue the same conversation. Omit to start a new session.
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: false
+                        isUserInput: true
+                agentApiName:
+                  title: Agent API Name
+                  description: Optional. API name of the agent to invoke. Omit to use the default agent (Case_CRUD_Agent).
+                  type: string
+                  x-sfdc:
+                    agent:
+                      action:
+                        isDisplayable: false
+                        isUserInput: true
+      responses:
+        &apos;200&apos;:
+          description: The agent&apos;s reply and the sessionId to reuse for the next turn.
+          content:
+            application/json:
+              schema:
+                $ref: &apos;#/components/schemas/AgentReply&apos;
+components:
+  schemas:
+    AgentReply:
+      type: object
+      properties:
+        agentResponse:
+          type: string
+          description: The agent&apos;s natural-language reply to the user message.
+        sessionId:
+          type: string
+          description: The conversation sessionId. Pass it back on the next call to continue the same multi-turn conversation.
+</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>yaml</schemaUploadFileExtension>
+    <schemaUploadFileName>InvokeAgentAction</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/services/aura-controllers/custom&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>
