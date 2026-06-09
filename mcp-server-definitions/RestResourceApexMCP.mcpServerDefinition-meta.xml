@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>fetch opportunity details by amount</description>
+    <masterLabel>RestResourceApexMCP</masterLabel>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>ar:MyCustomAPI</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>doGet</operation>
+        </apiDefinition>
+        <descriptionOverride>Retrieves Opportunities whose Amount is greater than a minimum value (defaults to 50000).</descriptionOverride>
+        <toolName>doGetMyCustomAPI</toolName>
+        <toolTitle>doGet</toolTitle>
+    </tools>
+</McpServerDefinition>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Research on case issue through prompt template exposed to mcp client</description>
+    <masterLabel>PromptTemplateMcpServer</masterLabel>
+    <prompts>
+        <promptName>Research_on_Case_subject</promptName>
+        <promptTemplateName>Research_on_Case_subject</promptTemplateName>
+        <promptTitle>Research on Case subject</promptTitle>
+    </prompts>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>nq:GetOpportunitiesByAmount</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>GetOpportunitiesByAmount</operation>
+        </apiDefinition>
+        <descriptionOverride>Get opportunity details by passing the amount</descriptionOverride>
+        <toolName>GetOpportunitiesByAmountGetOpportunitiesByAmount</toolName>
+        <toolTitle>GetOpportunitiesByAmount</toolTitle>
+    </tools>
+</McpServerDefinition>
